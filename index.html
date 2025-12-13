@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unique Random Integer Generator</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f5f6fa;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: #4f46e5;
+      color: white;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    button:disabled {
+      background: #a5a5a5;
+      cursor: not-allowed;
+    }
+
+    .result {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .message {
+      margin-top: 0.75rem;
+      text-align: center;
+      color: #b91c1c;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Unique Random Integer</h1>
+
+    <div class="inputs">
+      <div>
+        <label for="min">Min</label>
+        <input type="number" id="min" value="1" />
+      </div>
+      <div>
+        <label for="max">Max</label>
+        <input type="number" id="max" value="10" />
+      </div>
+    </div>
+
+    <button id="startBtn">Start / Reset</button>
+    <button id="nextBtn" disabled>Get Next Number</button>
+
+    <div class="result" id="result"></div>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    let availableNumbers = [];
+
+    const minInput = document.getElementById('min');
+    const maxInput = document.getElementById('max');
+    const startBtn = document.getElementById('startBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const resultDiv = document.getElementById('result');
+    const messageDiv = document.getElementById('message');
+
+    function initializeNumbers() {
+      const min = parseInt(minInput.value, 10);
+      const max = parseInt(maxInput.value, 10);
+
+      resultDiv.textContent = '';
+      messageDiv.textContent = '';
+
+      if (isNaN(min) || isNaN(max) || min > max) {
+        messageDiv.textContent = 'Please enter a valid min and max.';
+        nextBtn.disabled = true;
+        return;
+      }
+
+      availableNumbers = [];
+      for (let i = min; i <= max; i++) {
+        availableNumbers.push(i);
+      }
+
+      nextBtn.disabled = false;
+    }
+
+    function getNextNumber() {
+      if (availableNumbers.length === 0) {
+        resultDiv.textContent = '';
+        messageDiv.textContent = 'No more unique integers available.';
+        nextBtn.disabled = true;
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+      const number = availableNumbers.splice(randomIndex, 1)[0];
+
+      resultDiv.textContent = number;
+      messageDiv.textContent = `${availableNumbers.length} number(s) remaining.`;
+    }
+
+    startBtn.addEventListener('click', initializeNumbers);
+    nextBtn.addEventListener('click', getNextNumber);
+  </script>
+</body>
+</html>
