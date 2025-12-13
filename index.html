@@ -8,94 +8,110 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
-      padding: 1rem;
-      background: #f5f6fa;
+      padding: 1.25rem;
+      background: #f8fafc;
     }
 
     .container {
-      max-width: 500px;
+      max-width: 420px;
       margin: 0 auto;
       background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
 
     h1 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      font-size: 1.75rem;
+      margin-bottom: 1.25rem;
       text-align: center;
+      color: #1f2937;
     }
 
     .inputs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
     }
 
     label {
-      font-size: 0.85rem;
-      color: #555;
+      font-size: 1rem;
+      color: #374151;
+      margin-bottom: 0.25rem;
+      display: block;
     }
 
     input[type="number"] {
       width: 100%;
-      padding: 0.5rem;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      padding: 0.75rem;
+      font-size: 1.25rem;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      text-align: center;
     }
 
     button {
       width: 100%;
-      padding: 0.75rem;
-      font-size: 1rem;
+      padding: 1rem;
+      font-size: 1.25rem;
       border: none;
-      border-radius: 8px;
-      background: #4f46e5;
+      border-radius: 14px;
+      background: #2563eb;
       color: white;
       cursor: pointer;
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
     }
 
     button:disabled {
-      background: #a5a5a5;
+      background: #9ca3af;
       cursor: not-allowed;
     }
 
     .result {
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       text-align: center;
-      font-size: 1.25rem;
-      font-weight: 600;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #111827;
     }
 
     .message {
-      margin-top: 0.75rem;
+      margin-top: 1rem;
       text-align: center;
-      color: #b91c1c;
+      color: #374151;
+      font-size: 1.05rem;
+    }
+
+    .footer {
+      margin-top: 1.75rem;
+      text-align: center;
       font-size: 0.95rem;
+      color: #6b7280;
     }
 
     @media (max-width: 480px) {
       h1 {
-        font-size: 1.25rem;
+        font-size: 1.6rem;
+      }
+
+      .result {
+        font-size: 2.75rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Unique Random Integer</h1>
+    <h1>Unique Random Number</h1>
 
     <div class="inputs">
       <div>
-        <label for="min">Min</label>
+        <label for="min">Minimum</label>
         <input type="number" id="min" value="1" />
       </div>
       <div>
-        <label for="max">Max</label>
+        <label for="max">Maximum</label>
         <input type="number" id="max" value="10" />
       </div>
     </div>
@@ -105,6 +121,10 @@
 
     <div class="result" id="result"></div>
     <div class="message" id="message"></div>
+
+    <div class="footer">
+      Highlands Teachers Quorum
+    </div>
   </div>
 
   <script>
@@ -117,6 +137,12 @@
     const resultDiv = document.getElementById('result');
     const messageDiv = document.getElementById('message');
 
+    function gentleVibrate(duration = 25) {
+      if (navigator.vibrate) {
+        navigator.vibrate(duration);
+      }
+    }
+
     function initializeNumbers() {
       const min = parseInt(minInput.value, 10);
       const max = parseInt(maxInput.value, 10);
@@ -125,7 +151,7 @@
       messageDiv.textContent = '';
 
       if (isNaN(min) || isNaN(max) || min > max) {
-        messageDiv.textContent = 'Please enter a valid min and max.';
+        messageDiv.textContent = 'Please enter a valid minimum and maximum.';
         nextBtn.disabled = true;
         return;
       }
@@ -136,13 +162,15 @@
       }
 
       nextBtn.disabled = false;
+      gentleVibrate(15); // subtle confirmation
     }
 
     function getNextNumber() {
       if (availableNumbers.length === 0) {
         resultDiv.textContent = '';
-        messageDiv.textContent = 'No more unique integers available.';
+        messageDiv.textContent = 'No more unique numbers available.';
         nextBtn.disabled = true;
+        gentleVibrate(40); // slightly longer to signal completion
         return;
       }
 
@@ -151,6 +179,7 @@
 
       resultDiv.textContent = number;
       messageDiv.textContent = `${availableNumbers.length} number(s) remaining.`;
+      gentleVibrate(25); // gentle haptic on each draw
     }
 
     startBtn.addEventListener('click', initializeNumbers);
