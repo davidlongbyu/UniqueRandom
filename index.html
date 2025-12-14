@@ -43,7 +43,7 @@
     }
 
     input[type="number"] {
-      width: 100%;
+      width: 50%;
       padding: 0.9rem;
       font-size: 1.35rem;
       border-radius: 12px;
@@ -68,6 +68,10 @@
 
     #nextBtn {
       background: #235C35; /* calm green */
+    }
+
+    #nextBtn:disabled {
+      background: #9ca3af; /* gray when disabled */
     }
 
     button:disabled {
@@ -120,7 +124,7 @@
       </div>
       <div>
         <label for="max">Maximum</label>
-        <input type="number" id="max" value="10" />
+        <input type="number" id="max" value="13" />
       </div>
     </div>
 
