@@ -16,7 +16,7 @@
       max-width: 420px;
       margin: 0 auto;
       background: white;
-      border-radius: 16px;
+      border-radius: 18px;
       padding: 1.75rem;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
@@ -36,31 +36,38 @@
     }
 
     label {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: #374151;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.35rem;
       display: block;
     }
 
     input[type="number"] {
       width: 100%;
-      padding: 0.75rem;
-      font-size: 1.25rem;
-      border-radius: 10px;
+      padding: 0.9rem;
+      font-size: 1.35rem;
+      border-radius: 12px;
       border: 1px solid #d1d5db;
       text-align: center;
     }
 
     button {
       width: 100%;
-      padding: 1rem;
-      font-size: 1.25rem;
+      padding: 1.1rem;
+      font-size: 1.3rem;
       border: none;
-      border-radius: 14px;
-      background: #2563eb;
+      border-radius: 16px;
       color: white;
       cursor: pointer;
-      margin-top: 0.75rem;
+      margin-top: 0.9rem;
+    }
+
+    #startBtn {
+      background: #003057; /* deep blue */
+    }
+
+    #nextBtn {
+      background: #235C35; /* calm green */
     }
 
     button:disabled {
@@ -69,25 +76,25 @@
     }
 
     .result {
-      margin-top: 2rem;
+      margin-top: 2.25rem;
       text-align: center;
-      font-size: 5.5rem;   /* VERY large for phones */
+      font-size: 6.5rem; /* VERY large for phones */
       font-weight: 800;
       color: #111827;
       line-height: 1;
     }
 
     .message {
-      margin-top: 1rem;
+      margin-top: 1.25rem;
       text-align: center;
       color: #374151;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
     }
 
     .footer {
-      margin-top: 1.75rem;
+      margin-top: 2rem;
       text-align: center;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: #6b7280;
     }
 
@@ -97,7 +104,7 @@
       }
 
       .result {
-        font-size: 4.75rem;
+        font-size: 5.75rem; /* still massive on small phones */
       }
     }
   </style>
@@ -117,19 +124,13 @@
       </div>
     </div>
 
-    <button id="startBtn" style="background:#003057">
-      Start / Reset
-    </button>
-    <button id="nextBtn" disabled style="background:#235C35">
-      Get Next Number
-    </button>
-    
+    <button id="startBtn">Start / Reset</button>
+    <button id="nextBtn" disabled>Get Next Number</button>
+
     <div class="result" id="result"></div>
     <div class="message" id="message"></div>
 
-    <div class="footer">
-      Highlands Teachers Quorum
-    </div>
+    <div class="footer">Highlands Teachers Quorum - Test2</div>
   </div>
 
   <script>
@@ -167,7 +168,7 @@
       }
 
       nextBtn.disabled = false;
-      gentleVibrate(15); // subtle confirmation
+      gentleVibrate(15);
     }
 
     function getNextNumber() {
@@ -175,7 +176,7 @@
         resultDiv.textContent = '';
         messageDiv.textContent = 'No more unique numbers available.';
         nextBtn.disabled = true;
-        gentleVibrate(40); // slightly longer to signal completion
+        gentleVibrate(40);
         return;
       }
 
@@ -184,7 +185,7 @@
 
       resultDiv.textContent = number;
       messageDiv.textContent = `${availableNumbers.length} number(s) remaining.`;
-      gentleVibrate(25); // gentle haptic on each draw
+      gentleVibrate(25);
     }
 
     startBtn.addEventListener('click', initializeNumbers);
